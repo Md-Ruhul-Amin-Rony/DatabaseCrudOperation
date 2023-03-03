@@ -28,3 +28,8 @@ C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\obj\Debug\n
 C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\obj\Debug\net6.0\WorkShop16.pdb
 C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\obj\Debug\net6.0\WorkShop16.genruntimeconfig.cache
 C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\obj\Debug\net6.0\ref\WorkShop16.dll
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\bin\Debug\net6.0\Microsoft.Data.Tools.Schema.Sql.dll
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\bin\Debug\net6.0\Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\bin\Debug\net6.0\Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\bin\Debug\net6.0\Microsoft.Data.Tools.Utilities.dll
+C:\Users\adiar\OneDrive\Desktop\iths\ithsclass\WorkShop16\WorkShop16\bin\Debug\net6.0\Microsoft.SqlServer.TransactSql.ScriptDom.dll

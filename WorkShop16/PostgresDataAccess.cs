@@ -133,6 +133,64 @@ namespace WorkShop16
         }
 
 
+        public static void CreateCourses()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 4- create courses:");
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                try
+                {
+                    cnn.Open();
+                    Console.WriteLine("Enter course Name:");
+                    string name = Console.ReadLine().ToLower();
+                    Console.WriteLine("Enter points the course consist of:");
+                    int points = int.Parse(Console.ReadLine());
+
+
+
+                    Console.WriteLine("Enter course start date (yyyy-MM-dd):");
+                    string startDateStr = Console.ReadLine();
+                    DateTime start_date = DateTime.Parse(startDateStr);
+
+                    Console.WriteLine("Enter course start date (yyyy-MM-dd):");
+                    string endDateStr = Console.ReadLine();
+                    DateTime end_date = DateTime.Parse(endDateStr);
+
+
+                    
+                    // with crosscheck name
+                    string check = "SELECT COUNT(*) FROM mra_course WHERE name = @name";
+                    int count = cnn.ExecuteScalar<int>(check, new { name });
+                    if (count > 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("The course name is already in use.");
+                        Console.ResetColor();
+                        Console.WriteLine();
+                        return;
+                    }
+                    string sql = "INSERT INTO mra_course (name, points, start_date, end_date) " +
+                                 "VALUES (@name, @points, @start_date, @end_date)";
+                    cnn.Execute(sql, new { name, points, start_date, end_date });
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("New course created successfully!");
+                    Console.WriteLine();
+                    Console.ResetColor();
+                    Console.WriteLine("Press enter to go to main");
+                    Console.ReadKey();
+                    Console.Clear();
+
+
+
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid input");
+                }
+            }
+        }
+
 
 
         private static string LoadConnectionString(string id = "Default")

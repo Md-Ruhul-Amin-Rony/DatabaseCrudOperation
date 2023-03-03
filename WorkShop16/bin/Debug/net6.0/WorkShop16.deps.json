@@ -10,7 +10,10 @@
         "dependencies": {
           "Dapper": "2.0.123",
           "Npgsql": "7.0.2",
-          "System.Configuration.ConfigurationManager": "7.0.0"
+          "System.Configuration.ConfigurationManager": "7.0.0",
+          "Microsoft.Data.Tools.Schema.Sql": "15.0.0.0",
+          "Microsoft.Data.Tools.Schema.Sql.UnitTesting": "17.0.0.0",
+          "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter": "17.0.0.0"
         },
         "runtime": {
           "WorkShop16.dll": {}
@@ -137,6 +140,46 @@
             "fileVersion": "7.0.22.51805"
           }
         }
+      },
+      "Microsoft.Data.Tools.Schema.Sql/15.0.0.0": {
+        "runtime": {
+          "Microsoft.Data.Tools.Schema.Sql.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.5565.3"
+          }
+        }
+      },
+      "Microsoft.Data.Tools.Schema.Sql.UnitTesting/17.0.0.0": {
+        "runtime": {
+          "Microsoft.Data.Tools.Schema.Sql.UnitTesting.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.0.62207.28040"
+          }
+        }
+      },
+      "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter/17.0.0.0": {
+        "runtime": {
+          "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter.dll": {
+            "assemblyVersion": "17.0.0.0",
+            "fileVersion": "17.0.62207.28040"
+          }
+        }
+      },
+      "Microsoft.Data.Tools.Utilities/15.0.0.0": {
+        "runtime": {
+          "Microsoft.Data.Tools.Utilities.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.5565.3"
+          }
+        }
+      },
+      "Microsoft.SqlServer.TransactSql.ScriptDom/15.0.0.0": {
+        "runtime": {
+          "Microsoft.SqlServer.TransactSql.ScriptDom.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.5565.3"
+          }
+        }
       }
     }
   },
@@ -215,6 +258,31 @@
       "sha512": "sha512-bR4qdCmssMMbo9Fatci49An5B1UaVJZHKNq70PRgzoLYIlitb8Tj7ns/Xt5Pz1CkERiTjcVBDU2y1AVrPBYkaw==",
       "path": "system.windows.extensions/7.0.0",
       "hashPath": "system.windows.extensions.7.0.0.nupkg.sha512"
+    },
+    "Microsoft.Data.Tools.Schema.Sql/15.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Data.Tools.Schema.Sql.UnitTesting/17.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Data.Tools.Schema.Sql.UnitTestingAdapter/17.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Data.Tools.Utilities/15.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.SqlServer.TransactSql.ScriptDom/15.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

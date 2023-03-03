@@ -111,7 +111,8 @@ class Menu
                             PostgresDataAccess.CreateStudents();
                             break;
                         case 4:
-                            Console.WriteLine("Selected option 4 - Create course");
+                            PostgresDataAccess.CreateCourses();
+                           // Console.WriteLine("Selected option 4 - Create course");
                             break;
                         case 5:
                             Console.WriteLine("Selected option 5 - Change password");
