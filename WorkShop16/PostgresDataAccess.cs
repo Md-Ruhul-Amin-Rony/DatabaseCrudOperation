@@ -218,62 +218,178 @@ namespace WorkShop16
                 }
             }
         }
+        //public static void EditCourse()
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Selected option 6- Edit Course:");
+        //    List<CourseModel> courses = LoadCourses();
+
+        //    Console.WriteLine("Enter the course id you want to change:");
+        //    int id = int.Parse(Console.ReadLine());
+
+        //    // Find the course with the given id
+        //    CourseModel course = courses.Find(c => c.id == id);
+
+        //    if (course == null)
+        //    {
+        //        Console.WriteLine($"No course with id {id} was found.");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine($"The course you want to edit is : {course.name} and course points is {course.points}, course startdate is {course.StartDateShort} and enddate is {course.EndDateShort}.");
+
+
+        //        // Prompt the user for the new course name and points
+        //        Console.WriteLine("Enter the new course name:");
+        //        string newName = Console.ReadLine().ToLower();
+        //        Console.WriteLine("Enter the new course points:");
+        //        int newPoints = int.Parse(Console.ReadLine());
+        //        Console.WriteLine("Enter course start date (yyyy-MM-dd):");
+        //        string startDateStr = Console.ReadLine();
+        //        DateTime start_date = DateTime.Parse(startDateStr);
+
+        //        Console.WriteLine("Enter course start date (yyyy-MM-dd):");
+        //        string endDateStr = Console.ReadLine();
+        //        DateTime end_date = DateTime.Parse(endDateStr);
+
+        //        // Update the course in the database
+        //        using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+        //        {
+        //            string query = "UPDATE mra_course SET name = @Name, points = @Points, start_date =@StartDate,end_date=@EndDate  WHERE id = @Id";
+
+        //            int rowsAffected = cnn.Execute(query, new
+        //            {
+        //                Name = newName,
+        //                Points = newPoints,
+        //                Id = id,
+        //                StartDate = start_date,
+        //                endDate = end_date
+        //            }) ;
+
+        //            if (rowsAffected == 0)
+        //            {
+        //                Console.WriteLine($"No course with id {id} was found.");
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine($"Course with id {id} was updated successfully.");
+        //            }
+        //        }
+        //    }
+        //}
+
+
         public static void EditCourse()
         {
             Console.Clear();
-            Console.WriteLine("Selected option 6- Edit Course:");
+            Console.WriteLine("Selected option 6 - Edit Course:");
+
+            // Load all courses
             List<CourseModel> courses = LoadCourses();
 
-            Console.WriteLine("Enter the course id you want to change:");
+            // Print the list of courses
+            Console.WriteLine("List of courses:");
+            foreach (CourseModel course in courses)
+            {
+                Console.WriteLine($"Course ID: {course.id}, Course Name: {course.name}, Course Points: {course.points}, Start Date: {course.StartDateShort}, End Date: {course.EndDateShort}, Duration (in days): {course.DurationInDays}");
+            }
+
+            // Prompt the user to enter the course ID to edit
+            Console.WriteLine("Enter the course ID you want to edit:");
             int id = int.Parse(Console.ReadLine());
 
-            // Find the course with the given id
-            CourseModel course = courses.Find(c => c.id == id);
+            // Find the course with the matching ID
+            CourseModel courseToUpdate = courses.Find(c => c.id == id);
 
-            if (course == null)
+            // If no course was found, display an error message and return
+            if (courseToUpdate == null)
             {
-                Console.WriteLine($"No course with id {id} was found.");
+                Console.WriteLine($"No course with ID {id} was found.");
+                return;
             }
-            else
+
+            // Prompt the user to enter the new values for the course
+            Console.WriteLine($"Selected course: Course ID: {courseToUpdate.id}, Course Name: {courseToUpdate.name}, Course Points: {courseToUpdate.points}, Start Date: {courseToUpdate.StartDateShort}, End Date: {courseToUpdate.EndDateShort}, Duration (in days): {courseToUpdate.DurationInDays}");
+            Console.WriteLine("Enter new course name (or press Enter to skip):");
+            string newName = Console.ReadLine();
+            Console.WriteLine("Enter new course points (or press Enter to skip):");
+            string newPointsStr = Console.ReadLine();
+            int newPoints = 0;
+            int.TryParse(newPointsStr, out newPoints);
+            Console.WriteLine("Enter new course start date (YYYY-MM-DD) (or press Enter to skip):");
+            string newStartDateStr = Console.ReadLine();
+            DateTime newStartDate = DateTime.MinValue;
+            DateTime.TryParse(newStartDateStr, out newStartDate);
+            Console.WriteLine("Enter new course end date (YYYY-MM-DD) (or press Enter to skip):");
+            string newEndDateStr = Console.ReadLine();
+            DateTime newEndDate = DateTime.MinValue;
+            DateTime.TryParse(newEndDateStr, out newEndDate);
+
+            // Update the course fields with the new values
+            if (!string.IsNullOrEmpty(newName))
             {
-                Console.WriteLine($"The course you want to edit is : {course.name} and course points is {course.points}, course startdate is {course.StartDateShort} and enddate is {course.EndDateShort}.");
-              
+                courseToUpdate.name = newName;
+            }
+            if (newPoints != 0)
+            {
+                courseToUpdate.points = newPoints;
+            }
+            if (newStartDate != DateTime.MinValue)
+            {
+                courseToUpdate.start_date = newStartDate;
+            }
+            if (newEndDate != DateTime.MinValue)
+            {
+                courseToUpdate.end_date = newEndDate;
+            }
 
-                // Prompt the user for the new course name and points
-                Console.WriteLine("Enter the new course name:");
-                string newName = Console.ReadLine();
-                Console.WriteLine("Enter the new course points:");
-                int newPoints = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter course start date (yyyy-MM-dd):");
-                string startDateStr = Console.ReadLine();
-                DateTime start_date = DateTime.Parse(startDateStr);
+            // Update the course in the database
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                string query = "UPDATE mra_course SET name = @Name, points = @Points, start_date = @StartDate, end_date = @EndDate WHERE id = @Id";
 
-                Console.WriteLine("Enter course start date (yyyy-MM-dd):");
-                string endDateStr = Console.ReadLine();
-                DateTime end_date = DateTime.Parse(endDateStr);
-
-                // Update the course in the database
-                using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+                int rowsAffected = cnn.Execute(query, new
                 {
-                    string query = "UPDATE mra_course SET name = @Name, points = @Points, start_date =@StartDate,end_date=@EndDate  WHERE id = @Id";
+                    Name = courseToUpdate.name,
+                    Points = courseToUpdate.points,
+                    StartDate = courseToUpdate.start_date,
+                    EndDate = courseToUpdate.end_date,
+                    Id = courseToUpdate.id
+                });
 
-                    int rowsAffected = cnn.Execute(query, new
-                    {
-                        Name = newName,
-                        Points = newPoints,
-                        Id = id,
-                        StartDate = start_date,
-                        endDate = end_date
-                    }) ;
+                if (rowsAffected == 0)
+                {
+                    Console.WriteLine($"No course with ID {courseToUpdate.id} was found.");
+                }
+                else
+                {
+                    Console.WriteLine($"Course with id {courseToUpdate.id} was updated successfully.");
+                }
+            }
+        }
 
-                    if (rowsAffected == 0)
-                    {
-                        Console.WriteLine($"No course with id {id} was found.");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Course with id {id} was updated successfully.");
-                    }
+
+
+        public static void DeleteCourse()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 7- Delete Course:");
+            List<CourseModel> courses = LoadCourses();
+            Console.WriteLine("Enter the course id you want to delete:");
+            int id = int.Parse(Console.ReadLine());
+
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                string query = "DELETE FROM mra_course WHERE id = @Id";
+                int rowsAffected = cnn.Execute(query, new { Id = id });
+
+                if (rowsAffected == 0)
+                {
+                    Console.WriteLine($"No course with id {id} was found.");
+                }
+                else
+                {
+                    Console.WriteLine($"Course with id {id} was deleted successfully.");
                 }
             }
         }

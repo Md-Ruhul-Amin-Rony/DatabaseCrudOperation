@@ -120,10 +120,11 @@ class Menu
                             break;
                         case 6:
                             PostgresDataAccess.EditCourse();
-                            Console.WriteLine("Selected option 6 - Edit course");
+                            
                             break;
                         case 7:
-                            Console.WriteLine("Selected option 7 - Delete course");
+                            PostgresDataAccess.DeleteCourse();
+                          
                             break;
                         case 8:
                             selection = 0;
