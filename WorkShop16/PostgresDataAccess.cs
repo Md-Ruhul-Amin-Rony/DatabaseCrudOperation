@@ -190,6 +190,95 @@ namespace WorkShop16
                 }
             }
         }
+        public static void ChangePasswordByEmail()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 5- Update password:");
+            using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+            {
+                cnn.Open();
+                Console.WriteLine("Enter your email:");
+                string email = Console.ReadLine().ToLower();
+                Console.WriteLine("Enter your new password");
+                string newPassword = Console.ReadLine();
+
+                int num = cnn.Execute($"UPDATE mra_student SET password = '{newPassword}' WHERE email = '{email}'");
+
+                if (num == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine($"No student found with email '{email}'.");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.WriteLine($"Password updated successfully for student with email '{email}'.");
+                    Console.ResetColor();
+                }
+            }
+        }
+        public static void EditCourse()
+        {
+            Console.Clear();
+            Console.WriteLine("Selected option 6- Edit Course:");
+            List<CourseModel> courses = LoadCourses();
+
+            Console.WriteLine("Enter the course id you want to change:");
+            int id = int.Parse(Console.ReadLine());
+
+            // Find the course with the given id
+            CourseModel course = courses.Find(c => c.id == id);
+
+            if (course == null)
+            {
+                Console.WriteLine($"No course with id {id} was found.");
+            }
+            else
+            {
+                Console.WriteLine($"The course you want to edit is : {course.name} and course points is {course.points}, course startdate is {course.StartDateShort} and enddate is {course.EndDateShort}.");
+              
+
+                // Prompt the user for the new course name and points
+                Console.WriteLine("Enter the new course name:");
+                string newName = Console.ReadLine();
+                Console.WriteLine("Enter the new course points:");
+                int newPoints = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter course start date (yyyy-MM-dd):");
+                string startDateStr = Console.ReadLine();
+                DateTime start_date = DateTime.Parse(startDateStr);
+
+                Console.WriteLine("Enter course start date (yyyy-MM-dd):");
+                string endDateStr = Console.ReadLine();
+                DateTime end_date = DateTime.Parse(endDateStr);
+
+                // Update the course in the database
+                using (IDbConnection cnn = new NpgsqlConnection(LoadConnectionString()))
+                {
+                    string query = "UPDATE mra_course SET name = @Name, points = @Points, start_date =@StartDate,end_date=@EndDate  WHERE id = @Id";
+
+                    int rowsAffected = cnn.Execute(query, new
+                    {
+                        Name = newName,
+                        Points = newPoints,
+                        Id = id,
+                        StartDate = start_date,
+                        endDate = end_date
+                    }) ;
+
+                    if (rowsAffected == 0)
+                    {
+                        Console.WriteLine($"No course with id {id} was found.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Course with id {id} was updated successfully.");
+                    }
+                }
+            }
+        }
+
+
 
 
 

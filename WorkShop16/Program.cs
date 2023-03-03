@@ -112,12 +112,14 @@ class Menu
                             break;
                         case 4:
                             PostgresDataAccess.CreateCourses();
-                           // Console.WriteLine("Selected option 4 - Create course");
+                           
                             break;
                         case 5:
-                            Console.WriteLine("Selected option 5 - Change password");
+                            PostgresDataAccess.ChangePasswordByEmail();
+                            
                             break;
                         case 6:
+                            PostgresDataAccess.EditCourse();
                             Console.WriteLine("Selected option 6 - Edit course");
                             break;
                         case 7:
