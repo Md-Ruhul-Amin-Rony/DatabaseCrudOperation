@@ -100,6 +100,7 @@ namespace WorkShop16
                             string password = Console.ReadLine();
                     Console.WriteLine(  "Enter your age:");
                     int age = int.Parse(Console.ReadLine());
+                    // with crosscheck email
                             string check = "SELECT COUNT(*) FROM mra_student WHERE email = @email";
                             int count = cnn.ExecuteScalar<int>(check, new { email });
                             if (count > 0)
