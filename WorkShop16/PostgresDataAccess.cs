@@ -348,7 +348,7 @@ namespace WorkShop16
             {
                 string query = "UPDATE mra_course SET name = @Name, points = @Points, start_date = @StartDate, end_date = @EndDate WHERE id = @Id";
 
-                int rowsAffected = cnn.Execute(query, new
+                int num = cnn.Execute(query, new
                 {
                     Name = courseToUpdate.name,
                     Points = courseToUpdate.points,
@@ -357,7 +357,7 @@ namespace WorkShop16
                     Id = courseToUpdate.id
                 });
 
-                if (rowsAffected == 0)
+                if (num == 0)
                 {
                     Console.WriteLine($"No course with ID {courseToUpdate.id} was found.");
                 }
